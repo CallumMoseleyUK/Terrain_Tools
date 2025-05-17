@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from noise import *
+from model.noise import *
 import time
 from matplotlib import cm
 from PIL import Image

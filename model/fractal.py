@@ -103,7 +103,7 @@ class TerrainGenerator:
             self.h[new_indices] = interpolated_h + (dh/dxy)*radius*self.r[new_indices] * self.rng.normal(size=n_new)
             self.num_points = self.num_points + n_new
 
-            print('time = %1.5f\n' % (time.time()-start_time))
+            print('time = %1.5f' % (time.time()-start_time))
 
         # Normalize map and create mesh
         print('Normalizing and meshing...')
