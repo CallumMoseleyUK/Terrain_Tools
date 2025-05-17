@@ -54,7 +54,7 @@ class TerrainGenerator:
 
     def sanitize_mesh_size(self,mesh_size):
         ''' Ensure mesh size is power of 2 plus one, e.g. 513'''
-        return int(2**(np.floor(np.log2(mesh_size))) + 1)
+        return int(2**(np.floor(np.log2(np.abs(mesh_size)))) + 1)
     
 
     def run(self):
