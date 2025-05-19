@@ -116,4 +116,7 @@ class TerrainGenerator:
         self.x_mesh,self.y_mesh = np.meshgrid(np.linspace(-1.0,1.0, self.mesh_size),
                                             np.linspace(-1.0,1.0, self.mesh_size))
         self.height_mesh = interpolate(self.x,self.y,self.h,self.x_mesh,self.y_mesh)
+
+    def get_height(self,x,y):
+        return interpolate(self.x,self.y,self.h,x,y)
         

@@ -1,0 +1,3 @@
+[submodule "WizardQuest"]
+	path = WizardQuest
+	url = https://github.com/CallumMoseleyUK/WizardQuest.git

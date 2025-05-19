@@ -4,6 +4,7 @@ from PIL import Image
 import numpy as np
 from model.fractal import TerrainGenerator
 import io
+import sys
 
 def plot_terrain(terrain,scale,min_height=-1000):
     #plt.style.use('dark_background')
@@ -36,9 +37,9 @@ def make_gif(max_iters,seed,terrain,scale):
     frames[0].save("animation.gif", save_all=True, append_images=frames[1:], duration=300, loop=0)
 
 if __name__ == '__main__':
-    seed = 137
-    max_iter = 7
-    mesh_size = 257
+    seed = None
+    max_iter = 7 #12 = 6000sec, 11 = 700sec, 10 = 75sec
+    mesh_size = 513
     r0 = 0.1
     rr = 0.05
     scale = 0.2
@@ -49,9 +50,10 @@ if __name__ == '__main__':
 
     #make_gif(np.arange(1,9),seed,terrain_generator,scale)
 
-    image = Image.fromarray(np.float64(terrain_generator.height_mesh)*255.0)
-    plt.figure()
-    plt.imshow(image, cmap='gray')
+    #image = Image.fromarray(np.float64(terrain_generator.height_mesh)*255.0)
+    #plt.figure()
+    #plt.imshow(image, cmap='gray')
 
-    plot_terrain(terrain_generator,scale,min_height=0.0)
-    plt.show()
+    #plot_terrain(terrain_generator,scale,min_height=-100)
+    #plt.show()
+
