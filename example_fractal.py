@@ -1,3 +1,7 @@
+'''
+Camera can be moved forward/back/left/right/up/down with W/A/S/D/Space/Ctrl,
+rotate with arrrow keys.
+'''
 import matplotlib.pyplot as plt
 from fractal import TerrainGenerator
 import sys
@@ -13,41 +17,38 @@ sys.path.append(os.path.join(parent_folder_path, submodule_name))
 
 
 if __name__ == '__main__':
+    bRender = True
     seed = None
-    max_iter = 5 #12 = 6000sec, 11 = 700sec, 10 = 75sec
+    max_iter = 7 #12 = 6000sec, 11 = 700sec, 10 = 75sec
     mesh_size = 128
     r0 = 0.1
     rr = 0.05
-    zscale = 1.0
+    zscale = 1.5
     global_scale = 10.0
     obj_file = 'WizardQuest/data/terrain.obj'
 
-    if True:
-        terrain_generator = TerrainGenerator(max_iter,mesh_size,r0=r0,rr=rr)
-        terrain_generator.initialize(seed)
-        terrain_generator.run()
-        terrain_generator.h *= zscale
-        terrain_generator.normalize_distribution()
+    terrain_generator = TerrainGenerator(max_iter,mesh_size,r0=r0,rr=rr)
+    terrain_generator.initialize(seed)
+    terrain_generator.run()
+    terrain_generator.h *= zscale
+    terrain_generator.normalize_distribution()
 
-        # Export to obj format
-        X,Y,Z = terrain_generator.x_mesh,terrain_generator.y_mesh,terrain_generator.z_mesh
-        vertices,faces,normals,texcoords = quad2tri(X*global_scale,Y*global_scale,Z*global_scale)
-        verts2obj(obj_file,vertices,faces,normals,texcoords)
-        mesh_path = 'data/terrain.obj'
-        texture_path = None
-        shader_paths = [ r'data\shaders\terrain_vert.glsl', r'data\shaders\terrain_frag.glsl' ]
-    else:
-        mesh_path = 'data/models/suzanne/suzanne.obj'
-        texture_path = 'data/models/suzanne/suzanne.DDS'
-        shader_paths = [ r'data\shaders\suzanne_vert.glsl', r'data\shaders\suzanne_frag.glsl' ]
-
+    # Export to obj format
+    X,Y,Z = terrain_generator.x_mesh,terrain_generator.y_mesh,terrain_generator.z_mesh
+    vertices,faces,normals,texcoords = quad2tri(X*global_scale,Y*global_scale,Z*global_scale)
+    verts2obj(obj_file,vertices,faces,normals,texcoords)
+    mesh_path = 'data/terrain.obj'
+    texture_path = None
+    shader_paths = [ r'data\shaders\terrain_vert.glsl', r'data\shaders\terrain_frag.glsl' ]
+    
     ## Render result
-    game = Game()
-    ent = Entity()
-    ent.add_render_model(game.asset_manager.load_render_model(mesh_path,texture_path=texture_path,shader_paths=shader_paths))
-    ent.position = [3.0,0.0,-2]
-    game.world.spawn_entity(ent)
-    game.run()
+    if bRender:
+        game = Game()
+        ent = Entity()
+        ent.add_render_model(game.asset_manager.load_render_model(mesh_path,texture_path=texture_path,shader_paths=shader_paths))
+        ent.position = [3.0,0.0,-2]
+        game.world.spawn_entity(ent)
+        game.run()
 
     #make_gif(np.arange(1,9),seed,terrain_generator,scale)
 
